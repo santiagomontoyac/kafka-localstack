@@ -2,14 +2,20 @@ pipeline {
   agent any
 
   stages {
-    stage('Start Infra') {
+    stage('Start Infra (LocalStack + Kafka)') {
       steps {
-        sh 'docker compose up -d'
-        sh 'sleep 30' // wait for LocalStack to be ready
+        // Ensure network exists
+        sh 'docker network inspect store-net || docker network create store-net'
+
+        // Start infra dependencies only (not the app services yet)
+        sh 'docker compose up localstack zookeeper kafka kafka-ui'
+
+        // Give LocalStack time to start
+        sh 'sleep 30'
       }
     }
 
-    stage('Deploy CloudFormation') {
+    stage('Deploy AWS Resources (CloudFormation)') {
       steps {
         dir('infra') {
           sh 'chmod +x infra-bootstrap.sh'
@@ -18,16 +24,10 @@ pipeline {
       }
     }
 
-
-    stage('Build Kotlin Services') {
+    stage('Deploy Application Containers') {
       steps {
-        sh './gradlew build'
-      }
-    }
-
-    stage('Deploy Microservices') {
-      steps {
-        sh 'docker compose up -d --build kafka-app'
+        // This starts kafka-app and rest-api services
+        sh 'docker compose up --build kafka-app app'
       }
     }
   }
