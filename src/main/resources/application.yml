@@ -1,0 +1,58 @@
+server:
+  port : 8084
+spring:
+  application:
+    name: kotlin-kafka-poc
+  docker:
+    compose:
+      enabled: false
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/store
+#    username: user
+#    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: demo-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      ack-mode: record
+      concurrency: 1
+      retry:
+        enabled: true
+        max-attempts: 3
+        delay: 2000 # ms between retries
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    properties:
+      spring.json.trusted.packages: "*"
+
+localstack:
+  aws:
+    region: us-east-1
+    s3:
+      endpoint-url: http://localhost:4566
+      access-key: test
+      secret-key: test
+    secrets-manager:
+      endpoint-url: http://localhost:4566
+      access-key: test
+      secret-key: test
+
+product:
+  service:
+    url: http://localhost:8081

@@ -1,0 +1,24 @@
+name,description,stock,price,idCategory
+Nike,Sport shoes,10,100,1
+Adidas,Running shoes,20,150,1
+Puma,Casual shoes,15,80,1
+New Balance,Casual shoes,32,800,1
+Home Deus,autos Yuval Noha Atari great book,7,35,2
+The Art of War,Sun Tzu,5,20,2
+The Art of Happiness,The Dalai Lama,12,25,2
+The Power of Now,Eckhart Tolle,8,30,2
+Elegant clothes,18,1500,4
+The Lean Startup,Eric Ries,6,40,2
+The Innovator's Dilemma,Clayton Christensen,4,50,2
+The Hard Thing About Hard Things,Ben Horowitz,3,60,2
+The Phoenix Project,Gene Kim,2,70,2
+Asus Laptop,Asus Laptop,10,1000,3
+Dell Laptop,Dell Laptop,15,1200,3
+HP Laptop,HP Laptop,20,1100,3
+Lenovo Laptop,12,900,3
+this is just a example eline to test if the dead letter queue is working
+Apple,Apple Laptop,25,999,3
+Samsung,Samsung Laptop,30,899,3
+Sony,Sony Laptop,18,950,3
+Fancy clothes,pants,22,1200,4
+The north face,Samsung Galaxy,50,800,4

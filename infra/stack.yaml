@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: LocalStack infra simulation for event-driven app
+
+Resources:
+  KafkaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: kafka-bucket
+
+  S3EventsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: s3-events-queue
+
+  SecretKey:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: secret-key
+      Description: JWT signing key
+      SecretString: "{\"token\":\"413F4428472B4B6250655368566D5970337336763979244226452948404D6351\"}"

@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Start Infra') {
+      steps {
+        sh 'docker compose up -d'
+        sh 'sleep 30' // wait for LocalStack to be ready
+      }
+    }
+
+    stage('Deploy CloudFormation') {
+      steps {
+        dir('infra') {
+          sh 'chmod +x infra-bootstrap.sh'
+          sh './infra-bootstrap.sh'
+        }
+      }
+    }
+
+
+    stage('Build Kotlin Services') {
+      steps {
+        sh './gradlew build'
+      }
+    }
+
+    stage('Deploy Microservices') {
+      steps {
+        sh 'docker compose up -d --build kafka-app'
+      }
+    }
+  }
+}
