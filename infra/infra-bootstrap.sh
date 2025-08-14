@@ -10,6 +10,6 @@ export AWS_DEFAULT_REGION=us-east-1
 aws --endpoint-url=http://localhost:4566 \
     cloudformation create-stack \
     --stack-name kafka-stack \
-    --template-body file://infra/stack.yaml
+    --template-body file://stack.yaml
 
 echo "✅ Stack deployed!"
