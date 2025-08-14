@@ -27,9 +27,10 @@ pipeline {
     stage('Deploy Application Containers') {
       steps {
         // This starts kafka-app and rest-api services
-        sh 'docker compose up -d --build kafka-app app'
+        sh 'docker compose up -d --build kafka-app'
       }
     }
   }
 }
+
 
