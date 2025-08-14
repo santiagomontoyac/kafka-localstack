@@ -8,7 +8,7 @@ pipeline {
         sh 'docker network inspect store-net || docker network create store-net'
 
         // Start infra dependencies only (not the app services yet)
-        sh 'docker compose up localstack zookeeper kafka kafka-ui'
+        sh 'docker compose up -d localstack zookeeper kafka kafka-ui'
 
         // Give LocalStack time to start
         sh 'sleep 30'
@@ -27,8 +27,9 @@ pipeline {
     stage('Deploy Application Containers') {
       steps {
         // This starts kafka-app and rest-api services
-        sh 'docker compose up --build kafka-app app'
+        sh 'docker compose up -d --build kafka-app app'
       }
     }
   }
 }
+
